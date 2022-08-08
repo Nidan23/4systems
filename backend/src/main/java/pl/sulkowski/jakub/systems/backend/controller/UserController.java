@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.sulkowski.jakub.systems.backend.entity.UserEntity;
-import pl.sulkowski.jakub.systems.backend.model.user.UserListRequestModel;
+import pl.sulkowski.jakub.systems.backend.model.user.AllUsersRequestModel;
+import pl.sulkowski.jakub.systems.backend.model.user.FindUserRequestModel;
 import pl.sulkowski.jakub.systems.backend.service.UserService;
 
 import java.util.List;
@@ -24,7 +25,12 @@ public class UserController {
     }
 
     @PostMapping("/get")
-    public List<UserEntity> getUsers(@RequestBody UserListRequestModel userListRequestModel) {
-        return userService.getAllUsers(userListRequestModel.getOffset(), userListRequestModel.getLimit());
+    public List<UserEntity> getUsers(@RequestBody AllUsersRequestModel userParams) {
+        return userService.getAllUsers(userParams.getOffset(), userParams.getLimit(), userParams.getDirection(), userParams.getSortFieldName());
+    }
+
+    @PostMapping("/search")
+    public List<UserEntity> getAllUsersWithFieldValueLike(@RequestBody FindUserRequestModel findUserRequestModel) {
+        return userService.getAllUsersWithFieldLike(findUserRequestModel.getSearchValue());
     }
 }
