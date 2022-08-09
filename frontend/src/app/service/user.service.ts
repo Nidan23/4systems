@@ -15,7 +15,7 @@ export class UserService {
     return this.backendConnectorService.getUsersFromServer(offset, limit, sortDirection, sortColumnName)
   }
 
-  addUsersToDb(users: any, fileType: string): Observable<UserModel[]> {
+  addUsersToDb(users: any, fileType: string): Observable<boolean> {
     return this.backendConnectorService.sendUsersToServer(users, fileType)
   }
 }

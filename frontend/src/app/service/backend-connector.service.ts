@@ -11,7 +11,7 @@ export class BackendConnectorService {
 
   constructor(private http: HttpClient) { }
 
-  sendUsersToServer(payload: any, fileType: string): Observable<UserModel[]> {
+  sendUsersToServer(payload: any, fileType: string): Observable<boolean> {
     let headers = undefined
     if (fileType === 'json') {
       payload = JSON.stringify(JSON.parse(payload))
@@ -19,7 +19,7 @@ export class BackendConnectorService {
     } else {
       headers = this.setHeader('Content-Type', 'application/xml')
     }
-    return this.http.post<UserModel[]>('http://localhost:8080/user/add', payload, {headers})
+    return this.http.post<boolean>('http://localhost:8080/user/add', payload, {headers})
   }
 
   getUsersFromServer(offset: number, limit: number, sortingType: Sorting, sortColumnName: SortColumnName): Observable<UserModel[]> {

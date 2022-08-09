@@ -35,7 +35,10 @@ export class AddUsersPageComponent implements Page {
     this.fileReader.onload = () => {
       this.userService.addUsersToDb(this.fileReader.result, fileName)
         .subscribe(data => {
-          this.router.navigateByUrl('/view-users')
+          if (data)
+            this.router.navigateByUrl('/view-users')
+          else
+            this.headerText = 'Something went wrong'
         })
     }
     this.fileReader.readAsText(file);
