@@ -1,8 +1,22 @@
-<nav>
-  <ul>
-    <li><a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">Home Page</a></li>
-    <li><a routerLink="/add-users" routerLinkActive="active" ariaCurrentWhenActive="page">Add users Page</a></li>
-    <li><a routerLink="/view-users" routerLinkActive="active" ariaCurrentWhenActive="page">View users Page</a></li>
-  </ul>
-</nav>
-<router-outlet></router-outlet>
+<section>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark ps-3">
+    <a class="navbar-brand" href="#">4system app</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a routerLink="/" routerLinkActive="active" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/add-users" routerLinkActive="active" class="nav-link">Add users</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/view-users" routerLinkActive="active" class="nav-link">View users</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
+</section>
