@@ -16,6 +16,7 @@ export class ViewUsersPageComponent implements Page, OnInit {
   numberOfRecordsPerPage: number = 100
   numberOfPages!: number
   users!: UserModel[]
+  pages!: any[]
   requestParams: GetUsersRequestParams = {
     offset: 0,
     limit: this.numberOfRecordsPerPage,
@@ -59,14 +60,18 @@ export class ViewUsersPageComponent implements Page, OnInit {
         const pageCount = data / this.numberOfRecordsPerPage
         if (pageCount < 0)
           this.numberOfPages = 1
+        else if (data % this.numberOfRecordsPerPage !== 0)
+          this.numberOfPages = Math.floor(pageCount) + 1
         else
           this.numberOfPages = pageCount
+
+        this.pages = Array(this.numberOfPages)
       })
   }
 
-  changePage(pageNumber: number) {
-    this.requestParams.offset = (pageNumber - 1) * this.numberOfRecordsPerPage
-    this.requestParams.limit = pageNumber * this.numberOfRecordsPerPage
+  changePage(pageNumber: string) {
+    const chosenPage = parseInt(pageNumber)
+    this.requestParams.offset = (chosenPage - 1) * this.numberOfRecordsPerPage
 
     this.getUsers()
   }

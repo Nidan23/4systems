@@ -25,15 +25,14 @@
       </table>
     </div>
     <div>
-      <nav>
-        <ul class="pagination justify-content-center">
-          <li *ngFor="let page of [].constructor(numberOfPages); let i = index" class="page-item">
-            <a class="page-link" (click)="changePage(i + 1)">
-              {{ i + 1 }}
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Page</span>
+        <input type="text" class="form-control" placeholder="Page number" aria-label="Page number"
+               #pager
+               [value]="requestParams.offset / numberOfRecordsPerPage + 1"
+               (change)="changePage(pager.value)">
+        <span class="input-group-text">of {{ numberOfPages }}</span>
+      </div>
     </div>
   </div>
 </section>
