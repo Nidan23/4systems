@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {BackendConnectorService} from "./backend-connector.service";
 import {Observable} from "rxjs";
 import {UserModel} from "../model/user.model";
+import {SortColumnName, Sorting} from "../utils/type/sorting";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class UserService {
     return this.backendConnectorService.getUsersFromServer(offset, limit, sortDirection, sortColumnName)
   }
 
-  addUsersToDb(users: any, fileType: string): Observable<boolean> {
+  addUsersToDb(users: any, fileType: string): Observable<UserModel[]> {
     return this.backendConnectorService.sendUsersToServer(users, fileType)
   }
 }
