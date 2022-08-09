@@ -10,12 +10,14 @@ import pl.sulkowski.jakub.systems.backend.service.UserService;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
+//    TODO -> FIX XML application/xml request
     //    TODO add different return type -> maybe boolean, we only need yes/no answer
     @PostMapping(value = "/add", consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public List<UserEntity> addUsers(@RequestBody List<UserEntity> users, @RequestHeader("Content-Type") String contentType) {
