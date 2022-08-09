@@ -6,7 +6,7 @@
       <button class="btn btn-outline-secondary" type="button" id="search-button" (click)="getUserByPhrase(searchInput.value)">Find!</button>
     </div>
     <div>
-      <table class="table">
+      <table class="table table-hover">
         <thead>
           <tr>
             <th *ngFor="let header of tableHeaders" (click)="changeSorting(header)">
@@ -18,7 +18,7 @@
         <tr *ngFor="let user of users">
           <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
-          <td>{{ user.surname }}</td>
+          <td>{{ transformSurname(user.name, user.surname) }}</td>
           <td>{{ user.login }}</td>
         </tr>
         </tbody>

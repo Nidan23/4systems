@@ -4,6 +4,7 @@ import {UserModel} from "../../model/user.model";
 import {UserService} from "../../service/user.service";
 import {GetUsersRequestParams} from "../../utils/interface/get-users-request-params";
 import {SortColumnName} from "../../utils/type/sorting";
+import {Md5} from "ts-md5";
 
 @Component({
   selector: 'app-view-users-page',
@@ -13,6 +14,7 @@ import {SortColumnName} from "../../utils/type/sorting";
 export class ViewUsersPageComponent implements Page, OnInit {
 
   headerText: string = 'Here you can find & search thru users in DB'
+  md5 = new Md5()
   numberOfRecordsPerPage: number = 100
   numberOfPages!: number
   users!: UserModel[]
@@ -85,5 +87,9 @@ export class ViewUsersPageComponent implements Page, OnInit {
       this.requestParams.sortDirection = 'DESC'
 
     this.getUsers()
+  }
+
+  transformSurname(name: string, surname: string) {
+    return `${surname}_${this.md5.appendStr(name).end()}`
   }
 }
