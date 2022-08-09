@@ -37,4 +37,9 @@ public class UserController {
     public List<UserEntity> getAllUsersWithFieldValueLike(@RequestBody FindUserRequestModel findUserRequestModel) {
         return userService.getAllUsersWithFieldLike(findUserRequestModel.getSearchValue());
     }
+
+    @GetMapping("/pages")
+    public long getNumberOfRecords() {
+        return userService.countAllRecords();
+    }
 }

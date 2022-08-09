@@ -34,6 +34,10 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    public long countAllRecords() {
+        return userRepository.count();
+    }
+
     public List<UserEntity> trimVariablesValue(List<UserEntity> users) {
         for (UserEntity user : users) {
             user.trimVariablesValue();
