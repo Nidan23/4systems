@@ -8,9 +8,10 @@ import java.util.Optional;
 public class OffsetBasedPageRequest implements Pageable {
     private final long limit;
     private final long offset;
-
-    private final Sort sort = Sort.by(Sort.Direction.DESC, "id");
-    public OffsetBasedPageRequest(long limit, long offset) {
+    private final Sort sort;
+    private final Sort.Direction sortDirection;
+    private final String sortFieldName;
+    public OffsetBasedPageRequest(long limit, long offset, Sort.Direction direction, String sortFieldName) {
         if (limit < 1) {
             throw new IllegalArgumentException("Limit must not be less than one!");
         }
@@ -19,6 +20,9 @@ public class OffsetBasedPageRequest implements Pageable {
         }
         this.limit = limit;
         this.offset = offset;
+        this.sort = Sort.by(direction, sortFieldName);
+        this.sortDirection = direction;
+        this.sortFieldName = sortFieldName;
     }
 
     @Override
@@ -55,11 +59,11 @@ public class OffsetBasedPageRequest implements Pageable {
 
     @Override
     public Pageable next() {
-        return new OffsetBasedPageRequest(getPageSize(), (int) (getOffset() + getPageSize()));
+        return new OffsetBasedPageRequest(getPageSize(), (int) (getOffset() + getPageSize()), sortDirection, sortFieldName);
     }
     public Pageable previous() {
         return hasPrevious() ?
-                new OffsetBasedPageRequest(getPageSize(), (int) (getOffset() - getPageSize())): this;
+                new OffsetBasedPageRequest(getPageSize(), (int) (getOffset() - getPageSize()), sortDirection, sortFieldName): this;
     }
     @Override
     public Pageable previousOrFirst() {
@@ -67,7 +71,7 @@ public class OffsetBasedPageRequest implements Pageable {
     }
     @Override
     public Pageable first() {
-        return new OffsetBasedPageRequest(getPageSize(), 0);
+        return new OffsetBasedPageRequest(getPageSize(), 0, sortDirection, sortFieldName);
     }
 
     @Override
