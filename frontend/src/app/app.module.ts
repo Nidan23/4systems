@@ -7,6 +7,7 @@ import {HomePageComponent} from './view/home-page/home-page.component';
 import {AddUsersPageComponent} from './view/add-users-page/add-users-page.component';
 import {ViewUsersPageComponent} from './view/view-users-page/view-users-page.component';
 import {HeaderComponent} from './component/header/header.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {HeaderComponent} from './component/header/header.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
