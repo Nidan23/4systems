@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Page} from "../../utils/interface/page";
 import {Router} from "@angular/router";
+import {UserService} from "../../service/user.service";
 
 @Component({
   selector: 'app-add-users-page',
@@ -9,7 +10,9 @@ import {Router} from "@angular/router";
 })
 export class AddUsersPageComponent implements Page {
 
-  constructor(private router: Router) {}
+  private fileReader: FileReader = new FileReader()
+
+  constructor(private router: Router, private userService: UserService) {}
 
   headerText: string = 'Here you can upload your users 2 DB'
   acceptableFileType: string = '.json'
@@ -18,7 +21,23 @@ export class AddUsersPageComponent implements Page {
     this.acceptableFileType = fileType
   }
 
-  addUsers(event: any) {
-    this.router.navigateByUrl('/view-users')
+  addUsers(inputElement: HTMLInputElement) {
+    const file = inputElement.files?.[0]
+
+    if(file)
+      this.extractUsersFromFile(file)
+  }
+
+  extractUsersFromFile(file: File) {
+    const fileNameArray = file.name.split('.')
+    const fileName = fileNameArray[fileNameArray.length - 1]
+
+    this.fileReader.onload = () => {
+      this.userService.addUsersToDb(this.fileReader.result, fileName)
+        .subscribe(data => {
+          this.router.navigateByUrl('/view-users')
+        })
+    }
+    this.fileReader.readAsText(file);
   }
 }

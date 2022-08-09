@@ -9,11 +9,11 @@
       </select>
     </div>
     <div class="input-group mb-3">
-      <input type="file" class="form-control" id="file-upload-input" [accept]="acceptableFileType">
+      <input type="file" class="form-control" id="file-upload-input" #fileUploadInput [accept]="acceptableFileType">
       <label class="input-group-text" for="file-upload-input">Upload</label>
     </div>
     <div class="d-flex justify-content-center">
-      <button class="btn btn-primary w-auto ps-5 pe-5" (click)="addUsers($event)">
+      <button class="btn btn-primary w-auto ps-5 pe-5" (click)="addUsers(fileUploadInput)">
         Send
       </button>
     </div>
