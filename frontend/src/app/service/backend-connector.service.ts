@@ -23,7 +23,22 @@ export class BackendConnectorService {
   }
 
   getUsersFromServer(offset: number, limit: number, sortingType: Sorting, sortColumnName: SortColumnName): Observable<UserModel[]> {
-    return new Observable<UserModel[]>()
+    const payload = {
+      offset,
+      limit,
+      direction: sortingType,
+      sortFieldName: sortColumnName
+    }
+
+    return this.http.post<UserModel[]>('http://localhost:8080/user/get', payload)
+  }
+
+  searchForUser(searchValue: string): Observable<UserModel[]> {
+    const payload = {
+      searchValue
+    }
+
+    return this.http.post<UserModel[]>('http://localhost:8080/user/search', payload)
   }
 
   private setHeader(name: string, value: string) {

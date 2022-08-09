@@ -18,4 +18,8 @@ export class UserService {
   addUsersToDb(users: any, fileType: string): Observable<boolean> {
     return this.backendConnectorService.sendUsersToServer(users, fileType)
   }
+
+  findUserByPhrase(searchPhrase: string): Observable<UserModel[]> {
+    return this.backendConnectorService.searchForUser(searchPhrase);
+  }
 }
