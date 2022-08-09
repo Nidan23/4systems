@@ -41,6 +41,10 @@ export class BackendConnectorService {
     return this.http.post<UserModel[]>('http://localhost:8080/user/search', payload)
   }
 
+  getNumberOfRecords(): Observable<number> {
+    return this.http.get<number>('localhost:8080/user/pages')
+  }
+
   private setHeader(name: string, value: string) {
     return new HttpHeaders({
       [name]: value
