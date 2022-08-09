@@ -22,4 +22,8 @@ export class UserService {
   findUserByPhrase(searchPhrase: string): Observable<UserModel[]> {
     return this.backendConnectorService.searchForUser(searchPhrase);
   }
+
+  getNumberOfRecords(): Observable<number> {
+    return this.backendConnectorService.getNumberOfRecords();
+  }
 }

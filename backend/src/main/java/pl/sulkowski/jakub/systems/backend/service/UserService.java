@@ -13,5 +13,7 @@ public interface UserService {
 
     List<UserEntity> getAllUsersWithFieldLike(String searchString);
 
+    long countAllRecords();
+
     List<UserEntity> trimVariablesValue(List<UserEntity> users);
 }

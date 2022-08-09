@@ -1,1 +1,38 @@
-<p>view-users-page works!</p>
+<section>
+  <header-component [headerText]="headerText"></header-component>
+  <div class="p-5">
+    <div class="input-group mb-3" (keydown.enter)="getUserByPhrase(searchInput.value)">
+      <input type="text" class="form-control" placeholder="Search Phrase" #searchInput aria-label="Search Phrase" aria-describedby="search-button">
+      <button class="btn btn-outline-secondary" type="button" id="search-button" (click)="getUserByPhrase(searchInput.value)">Find!</button>
+    </div>
+    <div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th *ngFor="let header of tableHeaders" (click)="changeSorting(header)">
+              {{ header }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ transformSurname(user.name, user.surname) }}</td>
+          <td>{{ user.login }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Page</span>
+        <input type="text" class="form-control" placeholder="Page number" aria-label="Page number"
+               #pager
+               [value]="requestParams.offset / numberOfRecordsPerPage + 1"
+               (change)="changePage(pager.value)">
+        <span class="input-group-text">of {{ numberOfPages }}</span>
+      </div>
+    </div>
+  </div>
+</section>
