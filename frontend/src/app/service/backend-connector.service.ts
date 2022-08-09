@@ -42,7 +42,7 @@ export class BackendConnectorService {
   }
 
   getNumberOfRecords(): Observable<number> {
-    return this.http.get<number>('localhost:8080/user/pages')
+    return this.http.get<number>('http://localhost:8080/user/pages')
   }
 
   private setHeader(name: string, value: string) {
