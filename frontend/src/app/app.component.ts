@@ -13,9 +13,9 @@ export class AppComponent {
   }
 
   showNavigation(nav: HTMLDivElement) {
-    if(nav.style.display === this.displayType.none)
-      nav.style.display = this.displayType.flex
-    else
+    if(nav.style.display === this.displayType.flex)
       nav.style.display = this.displayType.none
+    else
+      nav.style.display = this.displayType.flex
   }
 }
