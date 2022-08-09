@@ -17,14 +17,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    TODO -> FIX XML application/xml request
-    //    TODO add different return type -> maybe boolean, we only need yes/no answer
     @PostMapping(value = "/add", consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-    public List<UserEntity> addUsers(@RequestBody List<UserEntity> users, @RequestHeader("Content-Type") String contentType) {
+    public Boolean addUsers(@RequestBody List<UserEntity> users, @RequestHeader("Content-Type") String contentType) {
         if (contentType.startsWith(MediaType.APPLICATION_XML_VALUE)) {
             users = userService.trimVariablesValue(users);
         }
-        return userService.addUser(users);
+
+        List<UserEntity> addedUsers = userService.addUser(users);
+
+        return !addedUsers.isEmpty();
     }
 
     @PostMapping("/get")
