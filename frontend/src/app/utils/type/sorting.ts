@@ -1,3 +1,3 @@
-type Sorting = 'DESC' | 'ASC'
+export type Sorting = 'DESC' | 'ASC'
 
-type SortColumnName = 'id' | 'name' | 'surname' | 'login'
+export type SortColumnName = 'id' | 'name' | 'surname' | 'login'
