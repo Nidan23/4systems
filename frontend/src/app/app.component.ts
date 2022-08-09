@@ -7,4 +7,15 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
   title = 'frontend';
+  displayType = {
+    none: 'none',
+    flex: 'flex'
+  }
+
+  showNavigation(nav: HTMLDivElement) {
+    if(nav.style.display === this.displayType.none)
+      nav.style.display = this.displayType.flex
+    else
+      nav.style.display = this.displayType.none
+  }
 }
