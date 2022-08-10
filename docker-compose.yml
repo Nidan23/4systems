@@ -1,9 +1,9 @@
-version: 3
+version: '3'
 services:
   postgres:
     image: 'postgres:latest'
     healthcheck:
-      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+      test: [ 'CMD', 'pg_isready', '-q', '-d', 'postgres', '-U', 'root' ]
       timeout: 45s
       interval: 10s
       retries: 10
@@ -11,22 +11,23 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - APP_DB_USER=4system
-      - APP_DB_PASS=4system
-      - APP_DB_NAME=4system
+      - APP_DB_USER=may
+      - APP_DB_PASS=may
+      - APP_DB_NAME=may
+      - APP_ROOT_USER=root
+      - APP_ROOT_PASSWORD=root
     ports:
       - '5432:5432'
     volumes:
       - ./dbInit:/docker-entrypoint-initdb.d/
   backend:
-    build: ./backend/Dockerfile
+    build: /backend
     ports:
       - '8080:8080'
     depends_on:
       - postgres
-      - frontend
   frontend:
-    build: ./frontend/Dockerfile
+    build: /frontend
     ports:
       - '80:80'
     depends_on:

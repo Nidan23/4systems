@@ -1,3 +1,9 @@
 FROM openjdk:17-jdk-alpine
-COPY target/backend-0.0.1-SNAPSHOT.jar backend-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java","-jar","/backend-0.0.1-SNAPSHOT.jar"]
+RUN mkdir -p /usr/src/_4systems/backend
+WORKDIR /usr/src/_4systems/backend
+COPY . /usr/src/_4systems/backend
+
+RUN ./mvnw package
+RUN rm -rf /usr/src/_4systems/backend/src
+
+ENTRYPOINT ["java","-jar","target/backend-0.0.1-SNAPSHOT.jar"]
