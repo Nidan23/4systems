@@ -31,7 +31,7 @@ export class AddUsersPageComponent implements Page, OnInit {
   }
 
   ngOnInit() {
-    this.getNumberOfRecords()
+    this.getNumberOfRecordsForModal()
   }
 
   changeAcceptableFileType(fileType: string) {
@@ -53,7 +53,7 @@ export class AddUsersPageComponent implements Page, OnInit {
       this.userService.addUsersToDb(this.fileReader.result, fileName)
         .subscribe(data => {
           if (data) {
-            this.getNumberOfRecords(true)
+            this.getNumberOfRecordsForModal(true)
           }
           else
             this.headerText = 'Something went wrong'
@@ -62,7 +62,7 @@ export class AddUsersPageComponent implements Page, OnInit {
     this.fileReader.readAsText(file);
   }
 
-  getNumberOfRecords(showModal: boolean = false) {
+  getNumberOfRecordsForModal(showModal: boolean = false) {
     this.userService.getNumberOfRecords()
       .subscribe(data => {
         this.numberOfRecords.previous = this.numberOfRecords.current
