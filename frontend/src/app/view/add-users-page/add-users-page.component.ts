@@ -1,14 +1,15 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Page} from "../../utils/interface/page";
 import {Router} from "@angular/router";
 import {UserService} from "../../service/user.service";
+import {Modal} from "../../utils/interface/modal";
 
 @Component({
   selector: 'app-add-users-page',
   templateUrl: './add-users-page.component.html',
   styleUrls: ['./add-users-page.component.scss']
 })
-export class AddUsersPageComponent implements Page {
+export class AddUsersPageComponent implements Page, OnInit {
 
   private fileReader: FileReader = new FileReader()
 
@@ -16,6 +17,22 @@ export class AddUsersPageComponent implements Page {
 
   headerText: string = 'Here you can upload your users 2 DB'
   acceptableFileType: string = '.json'
+  numberOfRecords = {
+    previous: 0,
+    current: 0,
+    difference: 0
+  }
+  modal: Modal = {
+    isVisible: true,
+    modalText: '',
+    modalTitle: 'Added users',
+    modalButtonText: 'View users',
+    modalButtonRedirectTarget: '/view-users'
+  }
+
+  ngOnInit() {
+    this.getNumberOfRecords()
+  }
 
   changeAcceptableFileType(fileType: string) {
     this.acceptableFileType = fileType
@@ -35,12 +52,25 @@ export class AddUsersPageComponent implements Page {
     this.fileReader.onload = () => {
       this.userService.addUsersToDb(this.fileReader.result, fileName)
         .subscribe(data => {
-          if (data)
-            this.router.navigateByUrl('/view-users')
+          if (data) {
+            this.getNumberOfRecords(true)
+          }
           else
             this.headerText = 'Something went wrong'
         })
     }
     this.fileReader.readAsText(file);
+  }
+
+  getNumberOfRecords(showModal: boolean = false) {
+    this.userService.getNumberOfRecords()
+      .subscribe(data => {
+        this.numberOfRecords.previous = this.numberOfRecords.current
+        this.numberOfRecords.current = data
+        this.numberOfRecords.difference = this.numberOfRecords.current - this.numberOfRecords.previous
+
+        this.modal.modalText = `You just added ${this.numberOfRecords.difference} users 2 DB`
+        this.modal.isVisible = showModal
+      })
   }
 }
