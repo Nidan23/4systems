@@ -26,6 +26,10 @@ services:
       - '8080:8080'
     depends_on:
       - postgres
+    links:
+      - postgres
+    environment:
+      - DB_URL=jdbc:postgresql://postgres:5432/may
   frontend:
     build: /frontend
     ports:
@@ -33,3 +37,7 @@ services:
     depends_on:
       - backend
       - postgres
+    links:
+      - backend
+    environment:
+      - BACKEND_HOST=backend
