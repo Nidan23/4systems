@@ -8,6 +8,7 @@ import {AddUsersPageComponent} from './view/add-users-page/add-users-page.compon
 import {ViewUsersPageComponent} from './view/view-users-page/view-users-page.component';
 import {HeaderComponent} from './component/header/header.component';
 import {HttpClientModule} from "@angular/common/http";
+import {ModalComponent} from './component/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {HttpClientModule} from "@angular/common/http";
     HomePageComponent,
     AddUsersPageComponent,
     ViewUsersPageComponent,
-    HeaderComponent
+    HeaderComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
