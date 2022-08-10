@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {UserModel} from "../model/user.model";
 import {SortColumnName, Sorting} from "../utils/type/sorting";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class BackendConnectorService {
     } else {
       headers = this.setHeader('Content-Type', 'application/xml')
     }
-    return this.http.post<boolean>('http://localhost:8080/user/add', payload, {headers})
+    return this.http.post<boolean>(`http://${environment.backend_host}:8080/user/add`, payload, {headers})
   }
 
   getUsersFromServer(offset: number, limit: number, sortingType: Sorting, sortColumnName: SortColumnName): Observable<UserModel[]> {
@@ -30,7 +31,7 @@ export class BackendConnectorService {
       sortFieldName: sortColumnName
     }
 
-    return this.http.post<UserModel[]>('http://localhost:8080/user/get', payload)
+    return this.http.post<UserModel[]>(`http://${environment.backend_host}:8080/user/get`, payload)
   }
 
   searchForUser(searchValue: string): Observable<UserModel[]> {
@@ -38,11 +39,11 @@ export class BackendConnectorService {
       searchValue
     }
 
-    return this.http.post<UserModel[]>('http://localhost:8080/user/search', payload)
+    return this.http.post<UserModel[]>(`http://${environment.backend_host}:8080/user/search`, payload)
   }
 
   getNumberOfRecords(): Observable<number> {
-    return this.http.get<number>('http://localhost:8080/user/pages')
+    return this.http.get<number>(`http://${environment.backend_host}:8080/user/pages`)
   }
 
   private setHeader(name: string, value: string) {
